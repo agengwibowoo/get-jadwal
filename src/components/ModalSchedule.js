@@ -30,7 +30,7 @@ function ModalSchedule({
   initialValues,
 }) {
   const handleAddSchedule = (values, actions) => {
-    const { title, day_ } = values;
+    const { title, day: day_ } = values;
     const day__ = day || day_;
     post('schedule', { title, day: day__ }, { params: { email: getEmail() } })
       .catch(error => {
