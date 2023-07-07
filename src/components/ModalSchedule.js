@@ -114,10 +114,11 @@ function ModalSchedule({
                         <FormControl
                           isInvalid={form.errors.day && form.touched.day}
                         >
-                          <FormLabel data-cy="form-day">Pilih Hari</FormLabel>
+                          <FormLabel>Pilih Hari</FormLabel>
                           <Select
                             {...field}
                             options={days}
+                            data-cy="form-day"
                             placeholder="Pilih Hari"
                             onChange={selectedOption => {
                               form.setFieldValue('day', selectedOption);
