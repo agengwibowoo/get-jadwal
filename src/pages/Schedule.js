@@ -97,11 +97,10 @@ function Schedule() {
         <Button
           borderRadius="45px"
           colorScheme="pink"
-          leftIcon="+"
           onClick={() => handleOpenModal('add')}
           data-cy="btn-create-schedule"
         >
-          Tambah Mata Kuliah
+          + Tambah Mata Kuliah
         </Button>
       </Flex>
       <Box width="1000px">
