@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Modal,
   ModalOverlay,
@@ -29,6 +29,14 @@ function ModalSchedule({
   type = 'add',
   initialValues,
 }) {
+  const submitCounter = useRef();
+
+  useEffect(() => {
+    if (isOpen) {
+      submitCounter.current = 1;
+    }
+  }, [isOpen]);
+
   const handleAddSchedule = (values, actions) => {
     const { title, day: day_ } = values;
     const day__ = day || day_;
@@ -72,10 +80,13 @@ function ModalSchedule({
             <Formik
               initialValues={{ title: '', day: 'tuesday', ...initialValues }}
               onSubmit={(values, actions) => {
-                if (type === 'add') {
-                  handleAddSchedule(values, actions);
-                } else {
-                  handlEditSchedule(values, actions);
+                submitCounter.current = submitCounter.current + 1;
+                if (submitCounter.current <= 2) {
+                  if (type === 'add') {
+                    handleAddSchedule(values, actions);
+                  } else {
+                    handlEditSchedule(values, actions);
+                  }
                 }
               }}
             >
