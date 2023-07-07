@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
   Box,
   Button,
@@ -13,6 +13,7 @@ import {
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import debounce from 'lodash/debounce';
 import { post } from '../helpers/api';
 import Container from '../components/Container';
 import isLoggedIn from '../helpers/isLoggedIn';
@@ -31,6 +32,18 @@ const validationSchema = Yup.object({
 
 function CheckIn() {
   const navigate = useNavigate();
+
+  const validateEmail = useCallback(
+    debounce(async (value, form) => {
+      try {
+        await validationSchema.validateAt('email', { email: value });
+        form.setFieldError('email', '');
+      } catch (error) {
+        form.setFieldError('email', error.message);
+      }
+    }, 300),
+    []
+  );
 
   useEffect(() => {
     if (isLoggedIn()) {
@@ -81,6 +94,10 @@ function CheckIn() {
                           {...field}
                           placeholder="Masukkan email anda"
                           data-cy="input-email"
+                          onChange={e => {
+                            field.onChange(e);
+                            validateEmail(e.target.value, form);
+                          }}
                         />
                         <FormErrorMessage data-cy="error-email">
                           {form.errors.email}
