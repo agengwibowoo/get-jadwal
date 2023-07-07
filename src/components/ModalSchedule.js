@@ -115,18 +115,19 @@ function ModalSchedule({
                           isInvalid={form.errors.day && form.touched.day}
                         >
                           <FormLabel>Pilih Hari</FormLabel>
-                          <Select
-                            {...field}
-                            options={days}
-                            data-cy="form-day"
-                            placeholder="Pilih Hari"
-                            onChange={selectedOption => {
-                              form.setFieldValue('day', selectedOption);
-                            }}
-                            onBlur={() => {
-                              form.setFieldTouched('day', true);
-                            }}
-                          />
+                          <div data-cy="form-day">
+                            <Select
+                              {...field}
+                              options={days}
+                              placeholder="Pilih Hari"
+                              onChange={selectedOption => {
+                                form.setFieldValue('day', selectedOption);
+                              }}
+                              onBlur={() => {
+                                form.setFieldTouched('day', true);
+                              }}
+                            />
+                          </div>
                           <FormErrorMessage>{form.errors.day}</FormErrorMessage>
                         </FormControl>
                       )}
