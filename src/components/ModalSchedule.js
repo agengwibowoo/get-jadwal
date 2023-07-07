@@ -102,7 +102,7 @@ function ModalSchedule({
                           isInvalid={form.errors.day && form.touched.day}
                         >
                           <FormLabel data-cy="form-day">Pilih Hari</FormLabel>
-                          <Select {...field} placeholder="Pilih Hari">
+                          <Select {...field}>
                             {days.map(item => (
                               <option key={item.value} value={item.value}>
                                 {item.label}

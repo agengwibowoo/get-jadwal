@@ -4,28 +4,28 @@ import {
   Routes,
   Route,
   Navigate,
-  Outlet,
 } from 'react-router-dom';
 import CheckIn from './pages/CheckIn';
 import isLoggedIn from './helpers/isLoggedIn';
 import Home from './pages/Home';
 import Schedule from './pages/Schedule';
 
-const PrivateRoute = () => {
-  const auth = !!isLoggedIn();
-
-  return auth ? <Outlet /> : <Navigate to="/" />;
-};
-
 function Routing() {
+  console.log('isLoggedIn() ', isLoggedIn());
   return (
     <Router>
       <Routes>
         <Route exact path="/" element={<CheckIn />} />
-        <Route exact path="/" element={<PrivateRoute />}>
-          <Route exact path="/home" element={<Home />} />
-          <Route exact path="/schedule/:day" element={<Schedule />} />
-        </Route>
+        <Route
+          exact
+          path="/home"
+          element={isLoggedIn() ? <Home /> : <Navigate to="/" />}
+        />
+        <Route
+          exact
+          path="/schedule/:day"
+          element={isLoggedIn() ? <Schedule /> : <Navigate to="/" />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
