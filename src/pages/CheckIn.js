@@ -17,8 +17,16 @@ import { post } from '../helpers/api';
 import Container from '../components/Container';
 import isLoggedIn from '../helpers/isLoggedIn';
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email('Format email tidak sesuai').required('Required'),
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email('Format email tidak sesuai')
+    .test('valid-domain', 'Format email tidak sesuai', value => {
+      if (typeof value === 'string') {
+        return /\.[A-Za-z]+$/.test(value);
+      }
+      return false;
+    })
+    .required('Email is required'),
 });
 
 function CheckIn() {

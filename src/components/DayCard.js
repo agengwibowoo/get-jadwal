@@ -36,10 +36,8 @@ function DayCard({ label, totalSubject, value }) {
           cursor: 'pointer',
         }}
       >
-        <CardBody>
-          <Heading size="md" data-cy={`card-title-${label}`}>
-            {label}
-          </Heading>
+        <CardBody data-cy={`card-title-${label}`}>
+          <Heading size="md">{label}</Heading>
           {totalSubject ? (
             <Text
               data-cy={`card-desc-${label}`}

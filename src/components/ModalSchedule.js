@@ -60,13 +60,9 @@ function ModalSchedule({
       });
   };
   return (
-    <Modal
-      data-cy={type === 'add' ? 'form-add' : 'detail-form'}
-      isOpen={isOpen}
-      onClose={onClose}
-    >
+    <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent data-cy={type === 'add' ? 'form-add' : 'detail-form'}>
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton data-cy="close-modal" />
         <ModalBody>
@@ -105,12 +101,8 @@ function ModalSchedule({
                         <FormControl
                           isInvalid={form.errors.day && form.touched.day}
                         >
-                          <FormLabel>Pilih Hari</FormLabel>
-                          <Select
-                            {...field}
-                            placeholder="Pilih Hari"
-                            data-cy="form-day"
-                          >
+                          <FormLabel data-cy="form-day">Pilih Hari</FormLabel>
+                          <Select {...field} placeholder="Pilih Hari">
                             {days.map(item => (
                               <option key={item.value} value={item.value}>
                                 {item.label}
