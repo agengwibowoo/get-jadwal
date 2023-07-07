@@ -22,7 +22,7 @@ const validationSchema = Yup.object({
     .email('Format email tidak sesuai')
     .test('valid-domain', 'Format email tidak sesuai', value => {
       if (typeof value === 'string') {
-        return /\.[A-Za-z]+$/.test(value);
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value);
       }
       return false;
     })
