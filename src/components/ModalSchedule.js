@@ -68,7 +68,7 @@ function ModalSchedule({
         <ModalBody>
           <VStack>
             <Formik
-              initialValues={{ title: '', day: null, ...initialValues }}
+              initialValues={{ title: '', day: 'monday', ...initialValues }}
               onSubmit={(values, actions) => {
                 if (type === 'add') {
                   handleAddSchedule(values, actions);
