@@ -28,9 +28,9 @@ function ModalDeleteSchedule({ isOpen, onClose, refetch, id }) {
       });
   };
   return (
-    <Modal isOpen={isOpen} onClose={onClose} data-cy="form-delete">
+    <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent data-cy="form-delete">
         <ModalBody>
           <VStack>
             <Box textAlign="center">
