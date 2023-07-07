@@ -109,12 +109,8 @@ function Schedule() {
             <Subject data={item} handleOpenModal={handleOpenModal} />
           ))
         ) : (
-          <Center>
-            <Image
-              data-cy="todo-empty-state"
-              src={emptyState}
-              alt="todo-empty-state"
-            />
+          <Center data-cy="todo-empty-state">
+            <Image src={emptyState} alt="todo-empty-state" />
           </Center>
         )}
       </Box>

@@ -62,8 +62,10 @@ function ModalSchedule({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent data-cy={type === 'add' ? 'form-add' : 'detail-form'}>
-        <ModalHeader>{title}</ModalHeader>
+      <ModalContent>
+        <ModalHeader data-cy={type === 'add' ? 'form-add' : 'detail-form'}>
+          {title}
+        </ModalHeader>
         <ModalCloseButton data-cy="close-modal" />
         <ModalBody>
           <VStack>
