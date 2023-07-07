@@ -98,7 +98,7 @@ function CheckIn() {
                     isDisabled={!props.values.email}
                     data-cy="btn-login"
                   >
-                    Mulai sesi
+                    Mulai Sesi
                   </Button>
                 </Form>
               )}
