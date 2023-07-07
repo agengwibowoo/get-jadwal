@@ -106,7 +106,11 @@ function Schedule() {
       <Box width="1000px">
         {detail?.length ? (
           detail?.map(item => (
-            <Subject data={item} handleOpenModal={handleOpenModal} />
+            <Subject
+              key={item.id}
+              data={item}
+              handleOpenModal={handleOpenModal}
+            />
           ))
         ) : (
           <Center data-cy="todo-empty-state">

@@ -54,7 +54,7 @@ function JadwalKuliah() {
       <Box width="1000px">
         <Grid templateColumns="repeat(5, 1fr)" gap={6}>
           {days?.map(item => (
-            <GridItem w="100%" h="10">
+            <GridItem key={item?.value} w="100%" h="10">
               <DayCard
                 label={item.label}
                 value={item.value}
