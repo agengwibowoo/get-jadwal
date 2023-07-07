@@ -68,7 +68,7 @@ function ModalSchedule({
         <ModalBody>
           <VStack>
             <Formik
-              initialValues={{ title: '', day: 'monday', ...initialValues }}
+              initialValues={{ title: '', ...initialValues }}
               onSubmit={(values, actions) => {
                 if (type === 'add') {
                   handleAddSchedule(values, actions);
@@ -101,14 +101,14 @@ function ModalSchedule({
                         <FormControl
                           isInvalid={form.errors.day && form.touched.day}
                         >
-                          <FormLabel data-cy="form-day">Pilih Hari</FormLabel>
-                          <Select {...field}>
+                          <FormLabel>Pilih Hari</FormLabel>
+                          <select data-cy="form-day" {...field}>
                             {days.map(item => (
                               <option key={item.value} value={item.value}>
                                 {item.label}
                               </option>
                             ))}
-                          </Select>
+                          </select>
                           <FormErrorMessage>{form.errors.day}</FormErrorMessage>
                         </FormControl>
                       )}
