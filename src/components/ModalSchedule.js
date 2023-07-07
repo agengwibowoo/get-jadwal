@@ -62,13 +62,15 @@ function ModalSchedule({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent data-cy={type === 'add' ? 'form-add' : 'detail-form'}>
+      <ModalContent
+        data-cy={type === 'add' && !day ? 'form-add' : 'detail-form'}
+      >
         <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton data-cy="close-modal" />
         <ModalBody>
           <VStack>
             <Formik
-              initialValues={{ title: '', ...initialValues }}
+              initialValues={{ title: '', day: 'tuesday', ...initialValues }}
               onSubmit={(values, actions) => {
                 if (type === 'add') {
                   handleAddSchedule(values, actions);
@@ -102,13 +104,13 @@ function ModalSchedule({
                           isInvalid={form.errors.day && form.touched.day}
                         >
                           <FormLabel>Pilih Hari</FormLabel>
-                          <select data-cy="form-day" {...field}>
+                          <Select data-cy="form-day" {...field}>
                             {days.map(item => (
                               <option key={item.value} value={item.value}>
                                 {item.label}
                               </option>
                             ))}
-                          </select>
+                          </Select>
                           <FormErrorMessage>{form.errors.day}</FormErrorMessage>
                         </FormControl>
                       )}
@@ -126,8 +128,10 @@ function ModalSchedule({
                       data-cy="btn-submit"
                       isDisabled={
                         !day
-                          ? !props.values.title || !props.values.day
-                          : !props.values.title
+                          ? !props.values.title ||
+                            !props.values.day ||
+                            props.isSubmitting
+                          : !props.values.title || props.isSubmitting
                       }
                     >
                       Simpan
