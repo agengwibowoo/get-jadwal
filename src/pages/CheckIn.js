@@ -8,6 +8,7 @@ import {
   FormLabel,
   Heading,
   Input,
+  Text,
   VStack,
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
@@ -41,7 +42,7 @@ function CheckIn() {
       } catch (error) {
         form.setFieldError('email', error.message);
       }
-    }, 300),
+    }, 1000),
     []
   );
 
@@ -66,6 +67,7 @@ function CheckIn() {
             <Formik
               initialValues={{ email: '' }}
               validationSchema={validationSchema}
+              validateOnChange={false}
               onSubmit={(values, actions) => {
                 const { email } = values;
                 post('checkin', { email })
@@ -94,14 +96,27 @@ function CheckIn() {
                           {...field}
                           placeholder="Masukkan email anda"
                           data-cy="input-email"
+                          onBlur={() => {
+                            form.setFieldTouched('email', true);
+                            form.validateField('email');
+                          }}
                           onChange={e => {
                             field.onChange(e);
                             validateEmail(e.target.value, form);
                           }}
                         />
-                        <FormErrorMessage data-cy="error-email">
-                          {form.errors.email}
-                        </FormErrorMessage>
+                        {form.errors.email ? (
+                          <Text
+                            data-cy="error-email"
+                            color="#E53E3E"
+                            marginTop="0.5rem"
+                            fontSize="0.875rem"
+                          >
+                            {form.errors.email}
+                          </Text>
+                        ) : (
+                          <></>
+                        )}
                       </FormControl>
                     )}
                   </Field>
