@@ -18,6 +18,7 @@ import ModalSchedule from '../components/ModalSchedule';
 import { days } from '../constant/days';
 import ModalDeleteSchedule from '../components/ModalDeleteSchedule';
 import emptyState from '../assets/todo-empty-state.png';
+import isLoggedIn from '../helpers/isLoggedIn';
 
 function Schedule() {
   const [isModalScheduleOpen, setIsModalScheduleOpen] = useState(false);
@@ -28,7 +29,9 @@ function Schedule() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (day) {
+    if (!isLoggedIn()) {
+      navigate('/');
+    } else if (day) {
       getDetailSchedule();
     }
   }, [day]);

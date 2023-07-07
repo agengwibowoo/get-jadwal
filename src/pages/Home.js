@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import Container from '../components/Container';
+import { useNavigate } from 'react-router-dom';
 import { Box, Button, Grid, GridItem } from '@chakra-ui/react';
+import Container from '../components/Container';
 import DayCard from '../components/DayCard';
 import { get } from '../helpers/api';
 import getEmail from '../helpers/getEmail';
 import ModalSchedule from '../components/ModalSchedule';
 import { days } from '../constant/days';
+import isLoggedIn from '../helpers/isLoggedIn';
 
 function JadwalKuliah() {
   const [subjectsCounter, setSubjectsCounter] = useState();
   const [isModalAddScheduleOpen, setIsModalAddScheduleOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getSchedule();
+    if (!isLoggedIn()) {
+      navigate('/');
+    } else {
+      getSchedule();
+    }
   }, []);
 
   const getSchedule = () => {
