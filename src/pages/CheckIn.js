@@ -42,7 +42,7 @@ function CheckIn() {
       } catch (error) {
         form.setFieldError('email', error.message);
       }
-    }, 1000),
+    }, 500),
     []
   );
 
