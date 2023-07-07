@@ -13,9 +13,9 @@ import {
   FormLabel,
   Input,
   FormErrorMessage,
-  Select,
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
+import Select from 'react-select';
 import { patch, post } from '../helpers/api';
 import getEmail from '../helpers/getEmail';
 import { days } from '../constant/days';
@@ -39,7 +39,7 @@ function ModalSchedule({
 
   const handleAddSchedule = (values, actions) => {
     const { title, day: day_ } = values;
-    const day__ = day || day_;
+    const day__ = day || day_?.value;
     post('schedule', { title, day: day__ }, { params: { email: getEmail() } })
       .catch(error => {
         console.error(error);
@@ -78,7 +78,7 @@ function ModalSchedule({
         <ModalBody>
           <VStack>
             <Formik
-              initialValues={{ title: '', day: 'tuesday', ...initialValues }}
+              initialValues={{ title: '', ...initialValues }}
               onSubmit={(values, actions) => {
                 submitCounter.current = submitCounter.current + 1;
                 if (submitCounter.current <= 2) {
@@ -115,13 +115,17 @@ function ModalSchedule({
                           isInvalid={form.errors.day && form.touched.day}
                         >
                           <FormLabel data-cy="form-day">Pilih Hari</FormLabel>
-                          <Select {...field}>
-                            {days.map(item => (
-                              <option key={item.value} value={item.value}>
-                                {item.label}
-                              </option>
-                            ))}
-                          </Select>
+                          <Select
+                            {...field}
+                            options={days}
+                            placeholder="Pilih Hari"
+                            onChange={selectedOption => {
+                              form.setFieldValue('day', selectedOption);
+                            }}
+                            onBlur={() => {
+                              form.setFieldTouched('day', true);
+                            }}
+                          />
                           <FormErrorMessage>{form.errors.day}</FormErrorMessage>
                         </FormControl>
                       )}
